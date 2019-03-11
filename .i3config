@@ -13,7 +13,7 @@ set $urgent-bg-color 	 #E53935
 #CORE FUNCTIONALITY
 ##################
 
-set $mod Mod4
+set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -23,17 +23,19 @@ font pango:Liberation 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec urxvt
 
 # kill focused window
 bindsym $mod+BackSpace kill
 
 # DMENU
-bindsym $mod+m exec dmenu_run -fn "Ubuntu 10" 
+bindsym $mod+m exec dmenu_run -fn "Liberation 10" 
 
 # i3 LOCK
 bindsym $mod+Shift+x exec lock
 
+#Edit Config File
+bindsym $mod+Shift+Control+c urxvt -e vim ~/.config/i3/config
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -41,10 +43,9 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-bar {
-        font pango: FontAwesome 10
-	status_command i3blocks
-}
+#bar {
+#	status_command bumblebee-status
+#}
 
 
 
@@ -148,8 +149,8 @@ bindsym $mod+Shift+0 move container to workspace 10
 ##################
 #KEYBOARD SHORTCUTS
 ##################
-bindsym $mod+Shift+f exec thunar
-bindsym $mod+Shift+Control+f exec gksu thunar
+bindsym $mod+Shift+f exec nemo
+bindsym $mod+Shift+Control+f exec sudo nemo
 
 bindsym $mod+Shift+i exec firefox
 
@@ -158,14 +159,15 @@ bindsym $mod+Shift+i exec firefox
 ############
 
 exec --no-startup-id compton
-exec_always --no-startup-id feh --bg-fill ~/Dropbox/Images/Wallpaper/redditabstract.jpeg
+exec --no-startup-id nitrogen --restore
 exec --no-startup-id xautolock -time 10 -locker lock
-
-
 exec --no-startup-id nm-applet
 exec --no-startup-id volumeicon
 exec --no-startup-id redshift
 exec --no-startup-id dropbox
+exec --no-startup-id cbatticon
+exec --no-startup-id pulseaudio
+exec --no-startup-id xfce4-panel
 
 
 #############
