@@ -1,6 +1,9 @@
-########
-#COLORS
-#######
+###########
+#APPEARANCE
+###########
+
+font pango:Liberation 8
+hide_edge_borders both
 
 set $bg-color 	         #4f545f
 set $inactive-bg-color   #2f343f
@@ -8,97 +11,143 @@ set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
 set $urgent-bg-color 	 #E53935
 
+#Window Colors			border			background		text			indicator
+client.focused          	$bg-color		$bg-color          	$text-color          	#00ff00
+client.unfocused        	$inactive-bg-color	$inactive-bg-color 	$inactive-text-color 	#00ff00
+client.focused_inactive 	$inactive-bg-color	$inactive-bg-color 	$inactive-text-color 	#00ff00
+client.urgent 			$urgent-bg-color	$urgent-bg-color	$text-color 		#00ff00
 
-##################
-#CORE FUNCTIONALITY
-##################
 
-set $mod Mod1
+#############
+#STARTUP APPS
+#############
+exec --no-startup-id compton
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id xautolock -time 10 -locker lock
+exec --no-startup-id nm-applet
+exec --no-startup-id volumeicon
+exec --no-startup-id redshift
+exec --no-startup-id dropbox
+exec --no-startup-id cbatticon
+exec --no-startup-id pulseaudio
+exec --no-startup-id xfce4-panel
+exec --no-startup-id twmnd
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:Liberation 10
 
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+###################
+#KEYBOARD SHORTCUTS
+###################
 
-# start a terminal
+#Terminal
 bindsym $mod+Return exec urxvt
 
-# kill focused window
-bindsym $mod+BackSpace kill
+#File Manager
+bindsym $mod+Shift+f exec nemo
+bindsym $mod+Shift+Control+f exec sudo nemo
 
-# DMENU
+#Web Browser
+bindsym $mod+Shift+i exec firefox
+
+#DMENU
 bindsym $mod+m exec dmenu_run -fn "Liberation 10" 
 
-# i3 LOCK
+#i3 LOCK
 bindsym $mod+Shift+x exec lock
 
 #Edit Config File
 bindsym $mod+Shift+Control+c urxvt -e vim ~/.config/i3/config
-# reload the configuration file
+
+#Reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+
+#Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
+
+#Exit i3
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+
+#BRIGHTNESS CONTROLS
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 
+
+#MEIDA CONTROLS
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+#VOLUME CONTROLS
+#bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume 0 +5%"
+#bindsym XF86AudioLowerVolume exec "pactl set-sink-volume 0 -5%"
+bindsym XF86AudioMicMute exec pactl set-source-mute 1 toggle
+bindsym XF86AudioRaiseVolume exec "amixer -q set Master,0 1+ unmute"
+bindsym XF86AudioLowerVolume exec "amixer -q set Master,0 1- unmute"
+bindsym XF86AudioMute exec "amixer -q set Master playback toggle && amixer -q set Speaker unmute"
+
+
+###################
+#CORE FUNCTIONALITY
+###################
+
+set $mod Mod1
+
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+
+# kill focused window
+bindsym $mod+BackSpace kill
+
 
 #bar {
 #	status_command bumblebee-status
 #}
 
 
-
-#################
+##################
 #WINDOW MANAGEMENT
-#################
+##################
 
-hide_edge_borders both
-
-# window colors
-#                       border              background         text                 indicator
-client.focused          $bg-color           $bg-color          $text-color          #00ff00
-client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
-client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
-client.urgent $urgent-bg-color $urgent-bg-color $text-color #00ff00
-
+#Change Focused Window
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# alternatively, you can use the cursor keys:
+#Move Focused Window
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
+#Horizontal Mode
 bindsym $mod+h split h
 
-# split in vertical orientation
+#Vertical Mode
 bindsym $mod+v split v
 
-# enter fullscreen mode for the focused container
+#Fullscreen the focused Window
 bindsym $mod+f fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
+#Change Layout(stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-# toggle tiling / floating
+#Toggle focused window between TILING and FLOATING
 bindsym $mod+Shift+space floating toggle
 
-# change focus between tiling / floating windows
+#Change focus between TILED and FLOATING windows
 bindsym $mod+space focus mode_toggle
 
-# focus the parent container
+#Focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
-#bindsym $mod+d focus child
+#Focus the child container
+bindsym $mod+d focus child
 
+#RESIZE MODE
 mode "resize" {
 
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -114,15 +163,15 @@ bindsym $mod+r mode "resize"
 
 
 
-####################
+#####################
 #WORKSPACE MANAGEMENT
-####################
+#####################
 
 #Scroll through workspaces
 bindsym $mod+Control+Right workspace next
 bindsym $mod+Control+Left workspace prev
 
-# switch to workspace
+#Switch workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
@@ -134,7 +183,7 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
-# move focused container to workspace
+#Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
@@ -145,48 +194,3 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
-
-##################
-#KEYBOARD SHORTCUTS
-##################
-bindsym $mod+Shift+f exec nemo
-bindsym $mod+Shift+Control+f exec sudo nemo
-
-bindsym $mod+Shift+i exec firefox
-
-############
-#STARTUP APPS
-############
-
-exec --no-startup-id compton
-exec --no-startup-id nitrogen --restore
-exec --no-startup-id xautolock -time 10 -locker lock
-exec --no-startup-id nm-applet
-exec --no-startup-id volumeicon
-exec --no-startup-id redshift
-exec --no-startup-id dropbox
-exec --no-startup-id cbatticon
-exec --no-startup-id pulseaudio
-exec --no-startup-id xfce4-panel
-exec --no-startup-id twmnd
-
-
-#############
-#FUNCTION KEYS
-#############
-
-
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10 
-
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-
-#bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume 0 +5%"
-#bindsym XF86AudioLowerVolume exec "pactl set-sink-volume 0 -5%"
-
-bindsym XF86AudioMicMute exec pactl set-source-mute 1 toggle
-bindsym XF86AudioRaiseVolume exec "amixer -q set Master,0 1+ unmute"
-bindsym XF86AudioLowerVolume exec "amixer -q set Master,0 1- unmute"
-bindsym XF86AudioMute exec "amixer -q set Master playback toggle && amixer -q set Speaker unmute"
