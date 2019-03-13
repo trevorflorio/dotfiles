@@ -24,15 +24,10 @@ client.urgent 			$urgent-bg-color	$urgent-bg-color	$text-color 		#00ff00
 exec --no-startup-id compton
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xautolock -time 10 -locker lock
-exec --no-startup-id nm-applet
-exec --no-startup-id volumeicon
 exec --no-startup-id redshift
 exec --no-startup-id dropbox
-exec --no-startup-id cbatticon
-exec --no-startup-id pulseaudio
-exec --no-startup-id xfce4-panel
 exec --no-startup-id twmnd
-
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 ###################
 #KEYBOARD SHORTCUTS
@@ -42,8 +37,8 @@ exec --no-startup-id twmnd
 bindsym $mod+Return exec urxvt
 
 #File Manager
-bindsym $mod+Shift+f exec pcmanfs
-bindsym $mod+Shift+Control+f exec sudo pcmanfs
+bindsym $mod+Shift+f exec nemo 
+bindsym $mod+Shift+Control+f exec sudo nemo
 
 #Web Browser
 bindsym $mod+Shift+i exec firefox
@@ -55,7 +50,7 @@ bindsym $mod+m exec dmenu_run -fn "Liberation 10"
 bindsym $mod+Shift+x exec lock
 
 #Edit Config File
-bindsym $mod+Shift+Control+c exec urxvt -e vim ~/.config/i3/config
+bindsym $mod+Shift+Control+c urxvt -e vim ~/.config/i3/config
 
 #Reload the configuration file
 bindsym $mod+Shift+c reload
@@ -99,10 +94,6 @@ floating_modifier $mod
 # kill focused window
 bindsym $mod+BackSpace kill
 
-
-#bar {
-#	status_command bumblebee-status
-#}
 
 
 ##################
