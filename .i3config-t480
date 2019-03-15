@@ -27,6 +27,7 @@ exec --no-startup-id xautolock -time 10 -locker lock
 exec --no-startup-id redshift
 exec --no-startup-id dropbox
 exec --no-startup-id twmnd
+exec --no-startup-id tilda
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 ###################
@@ -37,8 +38,8 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 bindsym $mod+Return exec urxvt
 
 #File Manager
-bindsym $mod+Shift+f exec nemo 
-bindsym $mod+Shift+Control+f exec sudo nemo
+bindsym $mod+Shift+f exec pcmanfm 
+bindsym $mod+Shift+Control+f exec sudo pcmanfm
 
 #Web Browser
 bindsym $mod+Shift+i exec firefox
