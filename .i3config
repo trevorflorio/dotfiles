@@ -28,7 +28,7 @@ exec --no-startup-id redshift
 exec --no-startup-id dropbox
 exec --no-startup-id twmnd
 exec --no-startup-id tilda
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id xfce4-panel
 
 ###################
 #KEYBOARD SHORTCUTS
